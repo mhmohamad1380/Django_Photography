@@ -1,0 +1,48 @@
+{% load static %}
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Offcanvas Menu Section -->
+<div class="offcanvas-menu-wrapper">
+    <div class="menu-header">
+        <a href="/" class="site-logo">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </a>
+        <div class="menu-switch" id="menu-canvas-close">
+            <i class="icon_close"></i>
+        </div>
+    </div>
+    <ul class="main-menu">
+        <li><a href="/" class="active">خانه</a></li>
+        <li><a href="/gallery">گالری</a></li>
+        <li><a href="/blogs">وبلاگ</a></li>
+        <li><a href="/about-us">درباره</a></li>
+        <li><a href="/contact-us">تماس با ما</a></li>
+    </ul>
+    <div class="menu-footer">
+        <div class="footer-social">
+            <a href="#">فیس بوک</a>
+            <a href="#">توییتر</a>
+            <a href="#">اینستاگرام</a>
+        </div>
+        <div class="copyright">
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                کپی رایت &copy;<script>document.write(new Date().getFullYear());</script>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div>
+    </div>
+</div>
+<!-- Offcanvas Menu Section end -->
+
+<!-- Header section -->
+<header class="header-section">
+    <a href="/" class="site-logo">
+        <img src="{% static 'img/logo.png' %}" alt="">
+    </a>
+    <div class="menu-switch" id="menu-canvas-show">
+        <i class="icon_menu"></i>
+    </div>
+</header>
+<!-- Header section end -->

@@ -1,0 +1,29 @@
+{% extends 'base/Main_Layout.html' %}
+{% load static %}
+{% block title %}
+    خانه/گالری عکس
+{% endblock %}
+{% block content %}
+
+    <!-- Hero section -->
+    <section style="text-align: right" class="hero-section">
+        <div class="hero-slider owl-carousel">
+            {% for item in lblogs %}
+            <div class="hero-item">
+                <div class="hero-text">
+                    <div class="ht-cata">{{ item.category.first }}</div>
+                    <h2>{{ item.title }}</h2>
+                    <p style="direction: rtl">{{ item.description|truncatechars:250 }}</p>
+                    <a href="/blogs/{{ item.slug }}/{{ item.id }}" class="ht-btn"> <i class="arrow_left"></i> ادامه مطلب</a>
+                </div>
+                <div style="border-bottom-left-radius: 20px;border-top-left-radius:20px" class="hi-bg set-bg" data-setbg="{{ item.image.url }}"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- Hero section end -->
+
+
+
+
+{% endblock %}

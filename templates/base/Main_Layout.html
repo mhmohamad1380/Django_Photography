@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    {% include 'base/header_reffrernces.html' %}
+    {% block header %}
+        <style>
+            section {
+                font-family: Iranian-Sans !important;
+            }
+        </style>
+    {% endblock %}
+    <title>{% block title %}
+    {% endblock %}</title>
+</head>
+<body>
+{% include 'base/header.html' %}
+{% block content %}
+{% endblock %}
+{% include 'base/footer.html' %}
+{% include 'base/footer_reffrences.html' %}
+{% include 'base/messages.html' %}
+{% block footer %}
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,173 @@
+{% extends 'base/Main_Layout.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block header %}
+
+{% endblock %}
+{% block title %}
+    بلاگ/{{ sblog.title }}
+{% endblock %}
+{% block content %}
+    <section class="blog-single-section">
+        <div class="blog-single-header set-bg" data-setbg="{{ sblog.image.url }}"
+             style="background-image: url('{{ sblog.image.url }}');">
+            <div class="container">
+                <div class="fb-cata">{{ sblog.category.first }}</div>
+                <h2>{{ sblog.title }}</h2>
+                <div class="bs-metas">
+                    {% if not filter_comments %}
+                        <div class="bs-meta"><b>بدون نظر</b></div>
+                    {% else %}
+                        <div style="direction: rtl" class="bs-meta"><b>{{ filter_comments.count }} نظر</b></div>
+                    {% endif %}
+                    <div class="bs-meta"><b>{{ sblog.jdate }}</b></div>
+                    <div class="bs-meta"><b>نوشته {{ sblog.author.first_name }}</b></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto blog-content text-right">
+                    <p style="font-size: large">
+                        {{ sblog.description }}
+                    </p>
+                    <div class="row blog-gellery">
+                        {% if sblog.image2 %}
+                            <div class="col-md-6">
+                                <a class="fresco" href="{{ sblog.image2.url }}" data-fresco-group="blog-gallery">
+                                    <img src="{{ sblog.image2.url }}" alt="">
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if sblog.image4 or sblog.image5 %}
+                            <div class="col-md-6">
+                                {% if sblog.image3 %}
+                                    <a class="fresco" href="{{ sblog.image3.url }}" data-fresco-group="blog-gallery">
+                                        <img src="{{ sblog.image3.url }}" alt="">
+                                    </a>
+                                {% endif %}
+                                {% if sblog.image4 and sblog.image5 %}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a class="fresco" href="{{ sblog.image4.url }}"
+                                               data-fresco-group="blog-gallery">
+                                                <img src="{{ sblog.image4.url }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a class="fresco" href="{{ sblog.image5.url }}"
+                                               data-fresco-group="blog-gallery">
+                                                <img src="{{ sblog.image5.url }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p>
+                        {{ sblog.description2 }}
+                    </p>
+                    <div class="row pt-5">
+                        <div class="col-lg-6 mb-4">
+                            {% for tag in blog_tag %}
+                                <div class="post-cata">{{ tag }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-6 mb-5 text-left text-md-right">
+                            <div class="post-share">
+
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-envelope"></i></a>
+                                <span> اشتراک گذاری </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5 m-0">
+            {% for item in related_blogs %}
+                <div style="direction: rtl" class="col-md-6 taxt-left text-md-right p-0">
+                    <div class="blog-item recent-blog set-bg" data-setbg="{{ item.image.url }}"
+                         style="background-image: url('{{ item.image.url }}');">
+                        <div class="blog-text ml-auto">
+                            <div class="bi-cata">{{ item.title }}</div>
+                            <h6>
+                                <a style="text-decoration: none;" href="/blogs/{{ item.slug }}/{{ item.id }}">
+                                    {{ item.description|truncatechars:150 }}
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div style="text-align: right;">
+            <h3 style="color: white">
+                نظرات
+            </h3>
+        </div>
+        <br>
+        <div>
+            {% for comment in filter_comments %}
+                <div class="col-md-12" style="border-right: 2px white solid;text-align: right">
+                    <h5 style="color: white;margin-right: 5px">{{ comment.name }}</h5>
+                    <b><p style="font-family: Arial !important">{{ comment.comment }}</p></b>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto blog-content text-right footer-blog">
+                    <h4 class="comment-title">نظر گذاشتن</h4>
+                    <form action="/blogs/{{ sblog.slug }}/{{ sblog.id }}" method="post">
+                        {% csrf_token %}
+                        {{ comment_form.captcha }}
+                        <div class="comment-form">
+                            <div style="direction: rtl">
+                                <label style="color: white"
+                                       for="{{ comment_form.name.id_for_label }}">{{ comment_form.name.label }}</label>
+                                {{ comment_form.name }}
+                                {% for error in comment_form.name.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            <div style="direction: rtl">
+                                <label style="color: white"
+                                       for="{{ comment_form.email.id_for_label }}">{{ comment_form.email.label }}</label>
+                                {{ comment_form.email }}
+                                {% for error in comment_form.email.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            <div style="direction: rtl">
+                                <label style="color: white"
+                                       for="{{ comment_form.phone.id_for_label }}">{{ comment_form.phone.label }}</label>
+                                {{ comment_form.phone }}
+                                {% for error in comment_form.phone.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            <div style="direction: rtl">
+                                <label style="color: white"
+                                       for="{{ comment_form.comment.id_for_label }}">{{ comment_form.comment.label }}</label>
+                                {{ comment_form.comment }}
+                                {% for error in comment_form.comment.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-success" type="submit">ثبت نظر</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

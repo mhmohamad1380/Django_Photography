@@ -1,0 +1,10 @@
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            swal({
+                title:"{{message}}",
+                icon:"{{ message.tags }}"
+            })
+        {% endfor %}
+    </script>
+{% endif %}

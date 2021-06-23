@@ -1,0 +1,10 @@
+<div class="feature-blog set-bg" data-setbg="{{ lblog.image.url }}"
+     style="background-image:url('{{ lblog.image.url }}'); border-radius: 10px">
+    <div class="container">
+        <div class="fb-cata">{{ lblog.category.first }}</div>
+        <h2>{{ lblog.title }}</h2>
+        <p style="color: white;direction: rtl" class="p-blog"><b>{{ lblog.description|truncatechars:250 }}</b></p>
+        <div class="clearfix"></div>
+        <a href="/blogs/{{ lblog.slug }}/{{ lblog.id }}" class="site-btn"> <i class="arrow_left"></i>&nbsp;&nbsp;&nbsp;ادامه مطلب</a>
+    </div>
+</div>

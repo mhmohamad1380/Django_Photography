@@ -1,0 +1,61 @@
+{% extends 'base/Main_Layout.html' %}
+{% load static %}
+{% block header %}
+    <style>
+        label {
+            color: white;
+            font-palette: light;
+        }
+    </style>
+{% endblock %}
+{% block title %}
+    ارتباط با ما
+{% endblock %}
+{% block content %}
+    <section style="direction: rtl;text-align: right" class="contact-section">
+        <div class="contact-warp set-bg" data-setbg="{% static 'img/blog/big.jpg' %}"
+             style="background-image: url({% static '&quot;img/blog/big.jpg&quot;' %});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="contact-info">
+                            <h4>اطلاعات</h4>
+                            <div class="ci-item"><i class="icon_phone"></i>{{ about_section.phone }}</div>
+                            <div class="ci-item"><i class="icon_mail"></i>{{ about_section.email }}</div>
+                        </div>
+                        <div class="contact-info">
+                            <h4>آدرس</h4>
+                            <div class="ci-item"><i class="icon_pin"></i>{{ about_section.address }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+
+                        <form action="/contact-us" method="post">
+                            {% csrf_token %}
+                            {{ contact_form.captcha }}
+                            <div class="comment-form">
+                                <label for="{{ contact_form.name.id_for_label }}">{{ contact_form.name.label }}</label>
+                                {{ contact_form.name }}
+                                {% for error in contact_form.name.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                                <label for="{{ contact_form.email.id_for_label }}">{{ contact_form.email.label }}</label>
+                                {{ contact_form.email }}
+                                {% for error in contact_form.email.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                                <label for="{{ contact_form.message.id_for_label }}">{{ contact_form.message.label }}</label>
+                                {{ contact_form.message }}
+                                {% for error in contact_form.email.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                                <br>
+                                <button class="btn btn-primary" type="submit">ارسال نظر</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

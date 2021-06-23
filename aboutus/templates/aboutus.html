@@ -1,0 +1,94 @@
+{% extends 'base/Main_Layout.html' %}
+{% block title %}
+    درباره ما
+{% endblock %}
+{% load static %}
+{% block header %}
+    <style>
+        section, div {
+            direction: rtl;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="page-top-section">
+        <div class="page-top-warp set-bg" data-setbg="{{ about_us_detail.image.url }}"
+             style="background-image: url({{ about_us_detail.image.url }});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h2 style="background-color: gray;border-radius: 10px;direction: rtl;text-align: center">{{ about_us_detail.title }}</h2>
+                        <h5 style="background-color: gray;border-radius: 10px;direction: rtl;text-align: center;color: white">
+                            {{ about_us_detail.subtitle }}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="about-section ">
+        <div class="container">
+            <div class="row about-item">
+                <div style="border-left: 2px white solid" class="col-lg-3">
+                    <h2>داستان ما</h2>
+                </div>
+                <div class="col-lg-9">
+                    <div class="ai-text pull-right">
+                        <h4>
+                            {{ about_us_detail.ourstory }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row about-item">
+                <div style="border-left: 2px white solid" class="col-lg-3 ">
+                    <h2>ما چه کاری میکنیم</h2>
+                </div>
+                <div class="col-lg-9">
+                    <div class="ai-text pull-right">
+                        <h4>
+                            {{ about_us_detail.whatwedo }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="team-section">
+        <div class="container-fluid">
+            <div class="text-center text-white mb-5">
+                <h2>تیم ما</h2>
+            </div>
+            <div class="row">
+                {% for person in our_team %}
+                    <div class="col-xl-2 col-md-4 col-sm-6 p-0">
+                        <div class="team-item">
+                            <img src="{{ person.image.url }}" alt="">
+                            <div class="team-meta">
+                                <div class="tm-text">
+                                    <h5>{{ person.name }}</h5>
+                                    <p>{{ person.cast }}</p>
+                                    <div class="tm-social">
+                                        {% if person.twitter %}
+                                            <a target="_blank" href="{{ person.twitter }}"><i class="fa fa-twitter"></i></a>
+                                        {% endif %}
+                                        {% if person.facebook %}
+                                            <a target="_blank" href="{{ person.facebook }}"><i class="fa fa-facebook"></i></a>
+                                        {% endif %}
+
+                                            {% if person.telegram %}
+                                                <a target="_blank" href="{{ person.telegram }}"><i class="fa fa-telegram"></i></a>
+                                            {% endif %}
+                                        {% if person.instagram %}
+                                            <a target="_blank" href="{{ person.instagram }}"><i class="fa fa-instagram"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
