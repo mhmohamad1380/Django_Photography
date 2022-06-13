@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  django:
+    build: './sourcecode'
+    container_name: "django"
+    ports:
+      - 80:8000
+    depends_on:
+      - db
+      - nginx
+    volumes:
+      - type: "bind"
+        target: "/app"
+        source: "./sourcecode"
+      - ./staticfiles:/app/staticfiles
+      - ./mediafiles:/app/mediafiles
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=postgresadmin
+  db:
+    image: postgres:latest
+    container_name: "postgresDB"
+    restart: always
+    expose:
+      - "5432"
+    volumes:
+      - type: "bind"
+        source: "./db"
+        target: "/var/lib/postgres/data"
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=postgresadmin
+
+  nginx:
+    build: "./nginx"
+    container_name: "nginx"
+    ports:
+      - 8080:80
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - ./mediafiles:/app/mediafiles
+    
